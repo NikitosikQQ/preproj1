@@ -8,16 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jm.task.core.jdbc.util.Util.getBaseConnectionJDBC;
+
 public class UserDaoJDBCImpl implements UserDao {
+
     private Executor executor;
+    private final Connection connection;
 
     public UserDaoJDBCImpl() {
-
-    }
-
-    public UserDaoJDBCImpl(Connection connection) {
+        this.connection = getBaseConnectionJDBC();
         this.executor = new Executor(connection);
     }
+
 
     public void createUsersTable() throws SQLException {
         executor.execUpdate("CREATE TABLE IF NOT EXISTS user_table (id INT NOT NULL AUTO_INCREMENT," +
